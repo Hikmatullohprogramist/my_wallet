@@ -17,6 +17,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
+        elevation: 200,
         color: Colors.grey[200],
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -135,12 +136,12 @@ class _HomePageState extends State<HomePage> {
                     ExpandingDotsEffect(activeDotColor: Colors.grey.shade800),
               ),
 
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
 
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
