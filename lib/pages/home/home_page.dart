@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
             ),
             IconButton(
               onPressed: () {},
-              icon: Icon(
+              icon: const Icon(
                 Icons.settings,
                 size: 32,
                 color: Colors.grey,
@@ -55,13 +55,13 @@ class _HomePageState extends State<HomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       backgroundColor: Colors.grey[300],
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: SafeArea(
           child: Column(
             children: [
               //app bar
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -83,12 +83,12 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     Container(
-                      padding: EdgeInsets.all(8),
-                      child: Icon(Icons.add),
+                      padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         color: Colors.grey[400],
                         borderRadius: BorderRadius.circular(50),
                       ),
+                      child: const Icon(Icons.add),
                     )
                   ],
                 ),
