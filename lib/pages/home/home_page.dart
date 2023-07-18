@@ -117,6 +117,13 @@ class _HomePageState extends State<HomePage> {
                       expariedYear: 25,
                     ),
                     MyCard(
+                      balance: 954.300,
+                      cardNumber: 9862,
+                      color: Colors.orange[400],
+                      expariedMonth: 14,
+                      expariedYear: 25,
+                    ),
+                    MyCard(
                       balance: 1486.300,
                       cardNumber: 9862,
                       color: Colors.red[400],
@@ -131,7 +138,7 @@ class _HomePageState extends State<HomePage> {
               ),
               SmoothPageIndicator(
                 controller: _controller,
-                count: 3,
+                count: 4,
                 effect:
                     ExpandingDotsEffect(activeDotColor: Colors.grey.shade800),
               ),

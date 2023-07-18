@@ -2,14 +2,16 @@
 class Assets {
   Assets._();
 
+  static const String authAuth = 'lib/pages/auth/auth.dart';
   static const String generatedAssets = 'lib/generated/assets.dart';
+  static const String homeHomePage = 'lib/pages/home/home_page.dart';
   static const String iconsAnalysis = 'lib/icons/analysis.png';
   static const String iconsBill = 'lib/icons/bill.png';
   static const String iconsShare = 'lib/icons/share.png';
   static const String iconsTransaction = 'lib/icons/transaction.png';
   static const String iconsWallet = 'lib/icons/wallet.png';
   static const String libMain = 'lib/main.dart';
-  static const String pagesHomePage = 'lib/pages/home_page.dart';
+  static const String splashSplashPage = 'lib/pages/splash/splash_page.dart';
   static const String utilsCategories = 'lib/utils/categories.dart';
   static const String utilsMyCard = 'lib/utils/my_card.dart';
   static const String utilsMyListTile = 'lib/utils/my_list_tile.dart';

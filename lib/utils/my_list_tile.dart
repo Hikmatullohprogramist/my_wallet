@@ -5,11 +5,12 @@ class MyListTile extends StatelessWidget {
   final String title;
   final String subtitle;
 
-  const MyListTile(
-      {super.key,
-      required this.iconPath,
-      required this.title,
-      required this.subtitle});
+  const MyListTile({
+    super.key,
+    required this.iconPath,
+    required this.title,
+    required this.subtitle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class MyListTile extends StatelessWidget {
             children: [
               Container(
                 height: 80,
-                padding: EdgeInsets.all(12),
+                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   color: Colors.grey[100],
                   borderRadius: BorderRadius.circular(12),
