@@ -13,8 +13,31 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _controller = PageController();
+
   @override
   Widget build(BuildContext context) {
+    bool isSelected_1 = false;
+    bool isSelected_2 = false;
+    bool isSelected_3 = false;
+
+    ontTapped1() {
+      isSelected_1 = true;
+      isSelected_2 = false;
+      isSelected_3 = false;
+    }
+
+    ontTapped2() {
+      isSelected_1 = false;
+      isSelected_2 = true;
+      isSelected_3 = false;
+    }
+
+    ontTapped3() {
+      isSelected_1 = false;
+      isSelected_2 = false;
+      isSelected_3 = true;
+    }
+
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
         elevation: 200,
@@ -48,7 +71,7 @@ class _HomePageState extends State<HomePage> {
         ),
         onPressed: () {},
         child: const Icon(
-          Icons.monetization_on,
+          Icons.add,
           color: Colors.white,
         ),
       ),
@@ -75,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Text(
-                          " Card",
+                          " Account",
                           style: TextStyle(
                             fontSize: 28,
                           ),
@@ -103,6 +126,7 @@ class _HomePageState extends State<HomePage> {
                   scrollDirection: Axis.horizontal,
                   children: [
                     MyCard(
+                      cardName: "Chontak",
                       balance: 252.300,
                       cardNumber: 9862,
                       color: Colors.deepPurple[400],
@@ -110,23 +134,10 @@ class _HomePageState extends State<HomePage> {
                       expariedYear: 25,
                     ),
                     MyCard(
+                      cardName: "Plastik humo",
                       balance: 954.300,
                       cardNumber: 9862,
                       color: Colors.orange[400],
-                      expariedMonth: 14,
-                      expariedYear: 25,
-                    ),
-                    MyCard(
-                      balance: 954.300,
-                      cardNumber: 9862,
-                      color: Colors.orange[400],
-                      expariedMonth: 14,
-                      expariedYear: 25,
-                    ),
-                    MyCard(
-                      balance: 1486.300,
-                      cardNumber: 9862,
-                      color: Colors.red[400],
                       expariedMonth: 14,
                       expariedYear: 25,
                     ),
@@ -138,7 +149,7 @@ class _HomePageState extends State<HomePage> {
               ),
               SmoothPageIndicator(
                 controller: _controller,
-                count: 4,
+                count: 2,
                 effect:
                     ExpandingDotsEffect(activeDotColor: Colors.grey.shade800),
               ),
@@ -153,11 +164,13 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CategoriesButton(
-                        imgPath: "lib/icons/share.png", text: "Send"),
+                        imgPath: "lib/icons/down-arrows_9847410.png",
+                        text: "Kirim"),
                     CategoriesButton(
-                        imgPath: "lib/icons/wallet.png", text: "Pay"),
+                        imgPath: "lib/icons/arrows-up_7019171.png",
+                        text: "Chiqim"),
                     CategoriesButton(
-                        imgPath: "lib/icons/bill.png", text: "Bills"),
+                        imgPath: "lib/icons/bill.png", text: "Hisobot"),
                   ],
                 ),
               ),
@@ -171,14 +184,14 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     MyListTile(
-                      iconPath: "lib/icons/analysis.png",
-                      title: "Statistics",
-                      subtitle: "Payments and Icome",
+                      iconPath: "lib/icons/arrows-up_7019171.png",
+                      title: "Chiqim: Abedga",
+                      subtitle: "20 000 UZS",
                     ),
                     MyListTile(
-                      iconPath: "lib/icons/transaction.png",
-                      title: "Transaction",
-                      subtitle: "Transaction history",
+                      iconPath: "lib/icons/down-arrows_9847410.png",
+                      title: "Kirim: Sistemadan",
+                      subtitle: "50 000 UZS",
                     ),
                   ],
                 ),

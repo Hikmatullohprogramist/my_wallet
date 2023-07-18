@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class MyCard extends StatelessWidget {
-  final double balance;
+  final String cardName;
+  final num balance;
   final int expariedYear;
   final int expariedMonth;
   final int cardNumber;
@@ -14,6 +16,7 @@ class MyCard extends StatelessWidget {
     required this.expariedMonth,
     required this.cardNumber,
     required this.color,
+    required this.cardName,
   });
 
   @override
@@ -31,6 +34,16 @@ class MyCard extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
+            Text(
+              cardName,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
             const Text(
               "Balance",
               style: TextStyle(
@@ -41,7 +54,10 @@ class MyCard extends StatelessWidget {
               height: 10,
             ),
             Text(
-              "\$ ${balance.toString()}",
+              " ${NumberFormat.currency(
+                locale: "Uz-uz",
+                decimalDigits: 1,
+              ).format(balance)}",
               style: const TextStyle(
                   color: Colors.white,
                   fontSize: 28,
