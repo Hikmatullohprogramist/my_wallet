@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 class CategoriesButton extends StatelessWidget {
   final String imgPath;
   final String text;
+  final Color color;
+
   const CategoriesButton({
     super.key,
     required this.imgPath,
     required this.text,
+    required this.color,
   });
 
   @override
@@ -17,7 +20,7 @@ class CategoriesButton extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           margin: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-              color: Colors.grey[100],
+              color: color,
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(

@@ -1,4 +1,8 @@
+// ignore_for_file: use_full_hex_values_for_flutter_colors
+
 import 'package:flutter/material.dart';
+import 'package:my_wallet/data/model/kirim_chiqim_model/kirim_chiqim_model.dart';
+import 'package:my_wallet/pages/add/add.dart';
 import 'package:my_wallet/utils/categories.dart';
 import 'package:my_wallet/utils/my_card.dart';
 import 'package:my_wallet/utils/my_list_tile.dart';
@@ -14,29 +18,45 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _controller = PageController();
 
-  @override
-  Widget build(BuildContext context) {
-    bool isSelected_1 = false;
-    bool isSelected_2 = false;
-    bool isSelected_3 = false;
+  bool isSelected_1 = false;
+  bool isSelected_2 = false;
+  bool isSelected_3 = false;
 
-    ontTapped1() {
+  void ontTapped1() {
+    setState(() {
       isSelected_1 = true;
       isSelected_2 = false;
       isSelected_3 = false;
-    }
+    });
+  }
 
-    ontTapped2() {
+  void ontTapped2() {
+    setState(() {
       isSelected_1 = false;
       isSelected_2 = true;
       isSelected_3 = false;
-    }
+    });
+  }
 
-    ontTapped3() {
+  void ontTapped3() {
+    setState(() {
       isSelected_1 = false;
       isSelected_2 = false;
       isSelected_3 = true;
-    }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    List<KirimChiqimModel> kirimChiqimModel = [
+      KirimChiqimModel("Kirim", "", "Sistema", 50000),
+      KirimChiqimModel("", "Chiqim", "Abed", 15000),
+      KirimChiqimModel("", "Chiqim", "Yol kira", 3000),
+      KirimChiqimModel("Kirim", " ", "Dasturdan", 50000),
+      KirimChiqimModel("Kirim", "", "Ishdan", 500000),
+      KirimChiqimModel("", "Chiqim", "Klaviaturaga", 300000),
+      KirimChiqimModel("", "Chiqim", "Monitorga", 2500000),
+    ];
 
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
@@ -69,7 +89,14 @@ class _HomePageState extends State<HomePage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(100),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddPage(),
+            ),
+          );
+        },
         child: const Icon(
           Icons.add,
           color: Colors.white,
@@ -150,27 +177,54 @@ class _HomePageState extends State<HomePage> {
               SmoothPageIndicator(
                 controller: _controller,
                 count: 2,
-                effect:
-                    ExpandingDotsEffect(activeDotColor: Colors.grey.shade800),
+                effect: SwapEffect(
+                  activeDotColor: Colors.grey.shade800,
+                ),
               ),
 
               const SizedBox(
                 height: 25,
               ),
 
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CategoriesButton(
+                    InkWell(
+                      onTap: () {
+                        ontTapped1();
+                      },
+                      child: CategoriesButton(
                         imgPath: "lib/icons/down-arrows_9847410.png",
-                        text: "Kirim"),
-                    CategoriesButton(
+                        text: "Kirim",
+                        color: isSelected_1
+                            ? const Color(0xff9E23FF)
+                            : const Color(0xfff1ededff),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () => ontTapped2(),
+                      child: CategoriesButton(
                         imgPath: "lib/icons/arrows-up_7019171.png",
-                        text: "Chiqim"),
-                    CategoriesButton(
-                        imgPath: "lib/icons/bill.png", text: "Hisobot"),
+                        text: "Chiqim",
+                        color: isSelected_2
+                            ? const Color(0xff9E23FF)
+                            : const Color(0xfff1ededff),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        ontTapped3();
+                      },
+                      child: CategoriesButton(
+                        imgPath: "lib/icons/bill.png",
+                        text: "Hisobot",
+                        color: isSelected_3
+                            ? const Color(0xff9E23FF)
+                            : const Color(0xfff1ededff),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -179,21 +233,23 @@ class _HomePageState extends State<HomePage> {
                 height: 25,
               ),
 
-              const Padding(
-                padding: EdgeInsets.all(25.0),
-                child: Column(
-                  children: [
-                    MyListTile(
-                      iconPath: "lib/icons/arrows-up_7019171.png",
-                      title: "Chiqim: Abedga",
-                      subtitle: "20 000 UZS",
-                    ),
-                    MyListTile(
-                      iconPath: "lib/icons/down-arrows_9847410.png",
-                      title: "Kirim: Sistemadan",
-                      subtitle: "50 000 UZS",
-                    ),
-                  ],
+              Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: ListView.builder(
+                  itemCount: kirimChiqimModel.length,
+                  shrinkWrap: true,
+                  primary: false,
+                  itemBuilder: (context, index) {
+                    var item = kirimChiqimModel[index];
+                    return MyListTile(
+                      iconPath: item.kirim.isEmpty
+                          ? "lib/icons/arrows-up_7019171.png"
+                          : "lib/icons/down-arrows_9847410.png",
+                      title:
+                          "${item.kirim.isEmpty ? item.chiqim : item.kirim}: ${item.title}",
+                      subtitle: item.summa,
+                    );
+                  },
                 ),
               )
             ],

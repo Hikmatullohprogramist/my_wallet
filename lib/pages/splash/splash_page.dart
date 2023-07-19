@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_wallet/login/src/utils/password_view.dart';
 import 'package:my_wallet/pages/home/home_page.dart';
 
 class SplashPage extends StatefulWidget {
@@ -19,7 +20,15 @@ class _SplashPageState extends State<SplashPage> {
       (value) => Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (context) => const HomePage(),
+          builder: (context) => PasswordInputView(
+            expectedCode: "0000",
+            onSuccess: ()=>Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomePage(),
+                )),
+            onError: () {},
+          ),
         ),
         (route) => false,
       ),

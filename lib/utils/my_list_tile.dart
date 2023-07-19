@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class MyListTile extends StatelessWidget {
   final String iconPath;
   final String title;
-  final String subtitle;
+  final num subtitle;
 
   const MyListTile({
     super.key,
@@ -47,8 +48,14 @@ class MyListTile extends StatelessWidget {
                     height: 8,
                   ),
                   Text(
-                    subtitle,
-                    style: TextStyle(color: Colors.grey[700], fontSize: 16),
+                    NumberFormat.currency(
+                      locale: "Uz-uz",
+                      decimalDigits: 0,
+                    ).format(subtitle),
+                    style: TextStyle(
+                      color: Colors.grey[700],
+                      fontSize: 16,
+                    ),
                   ),
                 ],
               ),
