@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:local_hero/local_hero.dart';
-import 'package:my_wallet/login/src/utils/utils.dart';
+import 'package:my_wallet/pages/login/src/utils/utils.dart';
 
 
 const _passcodeDigitPadding = 8.0;
@@ -9,8 +9,8 @@ const _passcodeDigitSizeSmall = 24.0;
 const _passcodeDigitGapBig = 16.0;
 const _passcodeDigitGapSmall = 4.0;
 
-class PasswordDigit {
-  const PasswordDigit({
+class SimpleDailer {
+  const SimpleDailer({
     required this.backgroundColor,
     required this.fontColor,
     this.value,
@@ -20,20 +20,20 @@ class PasswordDigit {
   final Color fontColor;
   final int? value;
 
-  PasswordDigit copyWith({
+  SimpleDailer copyWith({
     Color? backgroundColor,
     Color? fontColor,
     int? value,
   }) =>
-      PasswordDigit(
+      SimpleDailer(
         backgroundColor: backgroundColor ?? this.backgroundColor,
         fontColor: fontColor ?? this.fontColor,
         value: value ?? this.value,
       );
 }
 
-class PasswordDigits extends StatelessWidget {
-  const PasswordDigits({
+class PasscodeDigits extends StatelessWidget {
+  const PasscodeDigits({
     required this.animationDuration,
     required this.passcodeDigitValues,
     required this.simpleInputMode,
@@ -41,7 +41,7 @@ class PasswordDigits extends StatelessWidget {
   });
 
   final Duration animationDuration;
-  final List<PasswordDigit> passcodeDigitValues;
+  final List<SimpleDailer> passcodeDigitValues;
   final bool simpleInputMode;
 
   @override

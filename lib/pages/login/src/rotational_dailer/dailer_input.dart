@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:my_wallet/login/src/utils/utils.dart';
+import 'package:my_wallet/pages/login/src/utils/utils.dart';
 
 import '../widgets/dail_number.dart';
 import 'constant.dart';

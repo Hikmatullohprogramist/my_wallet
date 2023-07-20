@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:local_hero/local_hero.dart';
-import 'package:my_wallet/login/src/utils/password_digits.dart';
+import 'package:my_wallet/pages/login/src/utils/password_digits.dart';
 
 import '../rotational_dailer/constant.dart';
 import '../rotational_dailer/dailer_input.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_wallet/login/src/utils/password_view.dart';
 import 'package:my_wallet/pages/home/home_page.dart';
+import 'package:my_wallet/pages/login/src/utils/password_view.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});

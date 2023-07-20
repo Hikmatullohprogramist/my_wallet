@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/rendering.dart';
-import 'package:my_wallet/login/src/utils/utils.dart';
+import 'package:my_wallet/pages/login/src/utils/utils.dart';
 import 'constant.dart';
 
 
