@@ -1,11 +1,15 @@
 // ignore_for_file: use_full_hex_values_for_flutter_colors
 
 import 'package:flutter/material.dart';
-import 'package:my_wallet/data/model/kirim_chiqim_model/kirim_chiqim_model.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:my_wallet/pages/add/add.dart';
-import 'package:my_wallet/utils/categories.dart';
-import 'package:my_wallet/utils/my_card.dart';
-import 'package:my_wallet/utils/my_list_tile.dart';
+import 'package:my_wallet/pages/add_card/add_card.dart';
+import 'package:my_wallet/pages/home/home_view_model.dart';
+import 'package:my_wallet/widgets/categories.dart';
+import 'package:my_wallet/widgets/my_card.dart';
+import 'package:my_wallet/widgets/my_list_tile.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,6 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _controller = PageController();
+  HomeViewModel model = Get.put(HomeViewModel());
 
   bool isSelected_1 = false;
   bool isSelected_2 = false;
@@ -27,6 +32,7 @@ class _HomePageState extends State<HomePage> {
       isSelected_1 = true;
       isSelected_2 = false;
       isSelected_3 = false;
+      model.getKirim();
     });
   }
 
@@ -35,6 +41,7 @@ class _HomePageState extends State<HomePage> {
       isSelected_1 = false;
       isSelected_2 = true;
       isSelected_3 = false;
+      model.getChiqim();
     });
   }
 
@@ -48,42 +55,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    List<KirimChiqimModel> kirimChiqimModel = [
-      KirimChiqimModel("Kirim", "", "Sistema", 50000),
-      KirimChiqimModel("", "Chiqim", "Abed", 15000),
-      KirimChiqimModel("", "Chiqim", "Yol kira", 3000),
-      KirimChiqimModel("Kirim", " ", "Dasturdan", 50000),
-      KirimChiqimModel("Kirim", "", "Ishdan", 500000),
-      KirimChiqimModel("", "Chiqim", "Klaviaturaga", 300000),
-      KirimChiqimModel("", "Chiqim", "Monitorga", 2500000),
-    ];
-
     return Scaffold(
-      bottomNavigationBar: BottomAppBar(
-        elevation: 200,
-        color: Colors.grey[200],
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.home,
-                size: 32,
-                color: Colors.pink[200],
-              ),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.settings,
-                size: 32,
-                color: Colors.grey,
-              ),
-            ),
-          ],
-        ),
-      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.pink,
         shape: RoundedRectangleBorder(
@@ -93,7 +65,7 @@ class _HomePageState extends State<HomePage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AddPage(),
+              builder: (context) => const AddPage(),
             ),
           );
         },
@@ -118,27 +90,34 @@ class _HomePageState extends State<HomePage> {
                     const Row(
                       children: [
                         Text(
-                          "My",
+                          "Hello",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 28,
                           ),
                         ),
                         Text(
-                          " Account",
+                          " Hikmatillo",
                           style: TextStyle(
                             fontSize: 28,
                           ),
                         )
                       ],
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[400],
-                        borderRadius: BorderRadius.circular(50),
+                    GestureDetector(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AddCard(),
+                          )),
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[400],
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        child: const Icon(Icons.add),
                       ),
-                      child: const Icon(Icons.add),
                     )
                   ],
                 ),
@@ -233,25 +212,126 @@ class _HomePageState extends State<HomePage> {
                 height: 25,
               ),
 
-              Padding(
-                padding: const EdgeInsets.all(25.0),
-                child: ListView.builder(
-                  itemCount: kirimChiqimModel.length,
-                  shrinkWrap: true,
-                  primary: false,
-                  itemBuilder: (context, index) {
-                    var item = kirimChiqimModel[index];
-                    return MyListTile(
-                      iconPath: item.kirim.isEmpty
-                          ? "lib/icons/arrows-up_7019171.png"
-                          : "lib/icons/down-arrows_9847410.png",
-                      title:
-                          "${item.kirim.isEmpty ? item.chiqim : item.kirim}: ${item.title}",
-                      subtitle: item.summa,
-                    );
-                  },
+              if (isSelected_1)
+                SizedBox(
+                  height: 500,
+                  child: Obx(
+                    () {
+                      if (model.isLoading.value == true) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      if (model.isLoading.value == false) {
+                        return Center(
+                          child: ListWheelScrollView.useDelegate(
+                            physics: const FixedExtentScrollPhysics(),
+                            itemExtent: 90,
+                            perspective: 0.002,
+                            diameterRatio: 1.8,
+                            offAxisFraction: -0,
+                            childDelegate: ListWheelChildBuilderDelegate(
+                              childCount: model.kirimList.length,
+                              builder: (context, index) {
+                                var item = model.kirimList[index];
+                                return Slidable(
+                                  endActionPane: ActionPane(
+                                    motion: const DrawerMotion(),
+                                    children: [
+                                      SlidableAction(
+                                        onPressed: (context) {
+                                          model.deleteKirim(item.id);
+                                        },
+                                        icon: Icons.delete,
+                                        backgroundColor: Colors.red,
+                                        borderRadius: BorderRadius.circular(14),
+                                      ),
+                                      SlidableAction(
+                                        onPressed: (context) {},
+                                        icon: Icons.edit,
+                                        borderRadius: BorderRadius.circular(14),
+                                      ),
+                                    ],
+                                  ),
+                                  child: MyListTile(
+                                    iconPath:
+                                        "lib/icons/down-arrows_9847410.png",
+                                    title: " ${item.izoh}",
+                                    subtitle: NumberFormat.currency(
+                                      locale: "Uz-uz",
+                                      decimalDigits: 0,
+                                    ).format(int.parse(item.narx)).toString(),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        );
+                      }
+                      return Container();
+                    },
+                  ),
                 ),
-              )
+              if (isSelected_2)
+                SizedBox(
+                  height: 500,
+                  child: Obx(
+                    () {
+                      if (model.isLoading.value == true) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      if (model.isLoading.value == false) {
+                        return Center(
+                          child: ListWheelScrollView.useDelegate(
+                            physics: const FixedExtentScrollPhysics(),
+                            itemExtent: 90,
+                            perspective: 0.002,
+                            diameterRatio: 1.8,
+                            offAxisFraction: -0,
+                            childDelegate: ListWheelChildBuilderDelegate(
+                              childCount: model.chiqimList.length,
+                              builder: (context, index) {
+                                var item = model.chiqimList[index];
+                                return Slidable(
+                                  endActionPane: ActionPane(
+                                    motion: const DrawerMotion(),
+                                    children: [
+                                      SlidableAction(
+                                        onPressed: (context) {
+                                          model.deleteChiqim(item.id);
+                                        },
+                                        icon: Icons.delete,
+                                        backgroundColor: Colors.red,
+                                        borderRadius: BorderRadius.circular(14),
+                                      ),
+                                      SlidableAction(
+                                        onPressed: (context) {},
+                                        icon: Icons.edit,
+                                        borderRadius: BorderRadius.circular(14),
+                                      ),
+                                    ],
+                                  ),
+                                  child: MyListTile(
+                                    iconPath:
+                                        "lib/icons/down-arrows_9847410.png",
+                                    title: " ${item.izoh}",
+                                    subtitle: NumberFormat.currency(
+                                      locale: "Uz-uz",
+                                      decimalDigits: 0,
+                                    ).format(int.parse(item.narx)).toString(),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        );
+                      }
+                      return Container();
+                    },
+                  ),
+                ),
             ],
           ),
         ),

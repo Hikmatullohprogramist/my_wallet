@@ -1,16 +1,16 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'kirim_chiqim_model.g.dart';
+part 'chiqim_model.g.dart';
 
 @JsonSerializable()
-class KirimModel {
+class ChiqimModel {
   int id;
   int? userId;
   String? narx;
   String izoh;
   DateTime sana;
 
-  KirimModel({
+  ChiqimModel({
     required this.id,
     required this.userId,
     required this.narx,
@@ -18,8 +18,8 @@ class KirimModel {
     required this.sana,
   });
 
-  factory KirimModel.fromJson(Map<String, dynamic> json) =>
-      _$KirimModelFromJson(json);
+  factory ChiqimModel.fromJson(Map<String, dynamic> json) =>
+      _$ChiqimModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$KirimModelToJson(this);
+  Map<String, dynamic> toJson() => _$ChiqimModelToJson(this);
 }

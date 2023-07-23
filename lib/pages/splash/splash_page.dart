@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_wallet/pages/home/home_page.dart';
+import 'package:lottie/lottie.dart';
+import 'package:my_wallet/pages/bottom_navigation.dart';
 import 'package:my_wallet/pages/login/src/utils/password_view.dart';
 
 class SplashPage extends StatefulWidget {
@@ -14,7 +15,7 @@ class _SplashPageState extends State<SplashPage> {
   void didChangeDependencies() {
     Future.delayed(
       const Duration(
-        seconds: 3,
+        seconds: 2,
       ),
     ).then(
       (value) => Navigator.pushAndRemoveUntil(
@@ -25,7 +26,7 @@ class _SplashPageState extends State<SplashPage> {
             onSuccess: ()=>Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => HomePage(),
+                  builder: (context) => const BottomNavigationScreen(),
                 )),
             onError: () {},
           ),
@@ -38,16 +39,23 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.deepPurpleAccent,
+    return   Scaffold(
+      backgroundColor: Colors.deepPurple,
       body: Center(
-        child: Text(
-          "WELCOME",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 32,
-            color: Colors.white,
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Lottie.asset("lib/icons/animations/splash_animation.json"),
+            const Text(
+              "Hamyon UZ",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 32,
+                color: Colors.white,
+              ),
+            ),
+          ],
         ),
       ),
     );

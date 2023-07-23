@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class MyListTile extends StatelessWidget {
   final String iconPath;
   final String title;
-  final num subtitle;
+  final String subtitle;
 
   const MyListTile({
     super.key,
@@ -15,14 +14,29 @@ class MyListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+    return Container(
+      height: 100,
+margin: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(1),
+      decoration: BoxDecoration(
+        color: const Color(0xFFE0E0E0),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.deepPurple,
+            blurRadius: 4,
+            offset: Offset(0, 4),
+            spreadRadius: 0,
+          )
+        ],
+        borderRadius: BorderRadius.circular(12)
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
               Container(
+                margin: const EdgeInsets.all(4),
                 height: 80,
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
@@ -48,10 +62,7 @@ class MyListTile extends StatelessWidget {
                     height: 8,
                   ),
                   Text(
-                    NumberFormat.currency(
-                      locale: "Uz-uz",
-                      decimalDigits: 0,
-                    ).format(subtitle),
+                   subtitle,
                     style: TextStyle(
                       color: Colors.grey[700],
                       fontSize: 16,

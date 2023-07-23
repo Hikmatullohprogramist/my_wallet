@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_wallet/pages/add/add_kirim_chiqim_model.dart';
 
 class AddPage extends StatefulWidget {
   const AddPage({super.key});
@@ -8,6 +10,10 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> {
+  KirimChiqimViewModel model = Get.put(KirimChiqimViewModel());
+
+  TextEditingController title = TextEditingController();
+  TextEditingController price = TextEditingController();
   bool isSelected_1 = false;
   bool isSelected_2 = false;
   int selected = 0;
@@ -64,7 +70,7 @@ class _AddPageState extends State<AddPage> {
                       color: isSelected_1 ? Colors.deepPurple : Colors.white,
                     ),
                     child: Center(
-                      child:  Text(
+                      child: Text(
                         "Kirim",
                         style: TextStyle(
                           color: isSelected_1 ? Colors.white : Colors.black,
@@ -102,23 +108,25 @@ class _AddPageState extends State<AddPage> {
             const SizedBox(
               height: 100,
             ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
               child: SizedBox(
                 height: 50,
                 child: TextField(
-                  decoration: InputDecoration(
+                  controller: title,
+                  decoration: const InputDecoration(
                       border: OutlineInputBorder(), label: Text("Title")),
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
               child: SizedBox(
                 height: 50,
                 child: TextField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(), label: Text("Price")),
+                  controller: price,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(), label: Text("Price"),),
                 ),
               ),
             ),
@@ -137,15 +145,23 @@ class _AddPageState extends State<AddPage> {
                       child: Text("Bekor qilish" ,style: TextStyle(color: Colors.white),),
                     ),
                   ),
-                  Container(
-                    height: 50,
-                    width: 100,
-                    decoration: BoxDecoration(
-                      color: Colors.deepPurple,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child:  const Center(
-                      child: Text("Saqlash", style: TextStyle(color: Colors.white),),
+                  GestureDetector(
+                    onTap: () {
+                      if (isSelected_1)model.addKirim(title.text.trim(), price.text.trim());
+                      else{
+                        model.addChiqim(title.text.trim(), price.text.trim());
+                      }
+                    },
+                    child: Container(
+                      height: 50,
+                      width: 100,
+                      decoration: BoxDecoration(
+                        color: Colors.deepPurple,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child:  const Center(
+                        child: Text("Saqlash", style: TextStyle(color: Colors.white),),
+                      ),
                     ),
                   ),
                 ],
